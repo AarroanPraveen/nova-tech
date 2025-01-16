@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Tech</title>
+    <link rel="stylesheet" href="/FRONTEND/style.css">
+    <script defer src="/FRONTEND/index.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Nova Tech Store</div>
+        <nav>
+            <ul>
+                <li><a href="#ITEMS">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="/FRONTEND/contact.html">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+            </ul>
+            
+        </nav>
+        <button class="Signup-button" onclick="window.location.href='/Signup.html'">Signup</button>
+    </header>
+
+    <section id="home">
+        <div class="text-container">
+            <h1>Welcome to Nova Tech Store</h1>
+            <p>Your one-stop shop for the latest and greatest electronics!</p>
+            <button onclick="scrollToSection('ITEMS')">Shop Now</button>
+        </div>
+        <video autoplay loop muted>
+            <source src="/FRONTEND/IMAGES/video_2025-01-14 19_42_15.webm" type="video/mp4">
+        </video>
+    </section>
+
+    
+
+    <section id="ITEMS">
+        <h2>Our Products</h2>
+        <div class="ITEM-grid">
+            <div class="ITEM-card">
+                <img src="/FRONTEND/IMAGES/Lenovo Legion Laptop.jpg" alt="Laptop">
+                <h3>LENOVO LEGION LAPTOP</h3>
+                <p>High-performance laptop for work and play.</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="ITEM-card">
+                <img src="/FRONTEND/IMAGES/Apple-iPhone-16.jpg" alt="Smartphone">
+                <h3>IPHONE 16 </h3>
+                <p>Stay connected with the latest smartphone.</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="ITEM-card">
+                <img src="/FRONTEND/IMAGES/logitech g 733.jpg" alt="Headphones">
+                <h3>LOGITECH G733 HEADSET</h3>
+                <p>Experience premium sound quality.</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Nova Tech Store is a trusted retailer of electronics, offering top-notch products and customer service.</p>
+    </section>
+
+
+
+    <footer>
+        <p>&copy; 2025 Nova Tech Store. All rights reserved.</p>
+    </footer>
+    <script>
+    const signupForm = document.getElementById('signup-form');
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent page reload
+        
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+        
+            if (username && email && password) {
+                try {
+                    const response = await fetch('http://localhost:4000/api/aron/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, email, password }),
+                    });
+        
+                    const result = await response.json();
+        
+                    if (response.ok) {
+                        alert(result.message);
+                        signupForm.reset(); // Reset the form fields
+                    } else {
+                        alert(result.message);
+                    }
+                } catch (error) {
+                    console.error('Signup Error:', error);
+                    alert('Server error, please try again.');
+                }
+            } else {
+                alert('Please fill out all fields before submitting.');
+            }
+        });
+        </script>
+</body>
+
+</html>
